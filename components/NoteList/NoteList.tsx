@@ -6,7 +6,7 @@ import css from "./NoteList.module.css";
 interface NoteListProps {
   notes: Note[];
 
-  onDelete: UseMutateFunction<Note, Error, string | number, unknown>;
+  onDelete?: UseMutateFunction<Note, Error, string | number, unknown>;
 }
 
 export default function NoteList({ notes, onDelete }: NoteListProps) {
@@ -23,8 +23,9 @@ export default function NoteList({ notes, onDelete }: NoteListProps) {
             </Link>
 
             <button
-              onClick={() => onDelete(note.id)}
+              onClick={() => onDelete?.(note.id)}
               className={css.deleteButton}
+              disabled={!onDelete}
             >
               Delete
             </button>
