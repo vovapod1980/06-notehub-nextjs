@@ -1,3 +1,4 @@
+//1
 import notehubApi from "../api/notehub";
 import type { Note, NewNoteData } from "../types/note";
 
