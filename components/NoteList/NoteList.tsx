@@ -5,7 +5,6 @@ import css from "./NoteList.module.css";
 
 interface NoteListProps {
   notes: Note[];
-
   onDelete?: UseMutateFunction<Note, Error, string | number, unknown>;
 }
 
@@ -15,6 +14,8 @@ export default function NoteList({ notes, onDelete }: NoteListProps) {
       {notes.map((note) => (
         <li key={note.id} className={css.card}>
           <h3>{note.title}</h3>
+          <p>{note.content}</p>
+          {note.tag && <p className={css.tag || ""}>{note.tag}</p>}
           <p>{note.content}</p>
 
           <div className={css.actions}>
