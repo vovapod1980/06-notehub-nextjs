@@ -12,20 +12,21 @@ export default function NoteList({ notes, onDelete }: NoteListProps) {
   return (
     <ul className={css.list}>
       {notes.map((note) => (
-        <li key={note.id} className={css.card}>
-          <h3>{note.title}</h3>
-          <p>{note.content}</p>
-          {note.tag && <p className={css.tag || ""}>{note.tag}</p>}
-          <p>{note.content}</p>
+        <li key={note.id} className={css.listItem}>
+          <h3 className={css.title}>{note.title}</h3>
 
-          <div className={css.actions}>
-            <Link href={`/notes/${note.id}`} className={css.viewLink}>
+          <p className={css.tag}>{note.tag}</p>
+
+          <p className={css.content}>{note.content}</p>
+
+          <div className={css.footer}>
+            <Link href={`/notes/${note.id}`} className={css.link}>
               View details
             </Link>
 
             <button
               onClick={() => onDelete?.(note.id)}
-              className={css.deleteButton}
+              className={css.button}
               disabled={!onDelete}
             >
               Delete
