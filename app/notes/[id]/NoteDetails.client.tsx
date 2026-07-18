@@ -1,12 +1,11 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { fetchNoteById } from "@/lib/api";
 import css from "./NoteDetails.module.css";
 
 export default function NoteDetailsClient() {
-  const router = useRouter();
   const params = useParams();
   const id = params.id as string;
 
@@ -18,23 +17,20 @@ export default function NoteDetailsClient() {
     queryKey: ["note", id],
     queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
-    staleTime: 1000 * 60 * 5,
+    // staleTime: 1000 * 60 * 5,
   });
 
   if (isLoading) {
-    return <p>Завантаження, зачекайте, будь ласка...</p>;
+    return <p>Loading, please wait...</p>;
   }
 
   if (isError || !note) {
-    return <p>Щось пішло не так.</p>;
+    return <p>Something went wrong.</p>;
   }
 
   return (
     <main className={css.main}>
       <div className={css.container}>
-        <button onClick={() => router.back()} className={css.backButton}>
-          ← Back to notes{" "}
-        </button>
         <div className={css.item}>
           <div className={css.header}>
             <h2>{note.title}</h2>
@@ -44,7 +40,7 @@ export default function NoteDetailsClient() {
           <p className={css.date}>
             {note.createdAt
               ? new Date(note.createdAt).toLocaleDateString()
-              : "Дата створення невідома"}
+              : "Created date"}
           </p>
         </div>
       </div>
